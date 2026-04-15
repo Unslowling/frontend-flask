@@ -60,3 +60,15 @@ def editar_linea(id):
         return redirect(url_for('linea.listar_lineas'))
         
     return render_template("pages/linea_investigacion/editar.html", linea=linea_actual)
+
+@linea_bp.route('/linea_investigacion/eliminar/<int:id>', methods=['POST'])
+def eliminar_linea(id):
+    # Llamamos al método eliminar del ApiService
+    exito, mensaje = api.eliminar("linea_investigacion", "id", id)
+    
+    if exito:
+        flash("Línea de investigación eliminada exitosamente.", "success")
+    else:
+        flash(f"Error al eliminar: {mensaje}", "danger")
+        
+    return redirect(url_for('linea.listar_lineas'))

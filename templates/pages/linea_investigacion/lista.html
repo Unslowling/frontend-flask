@@ -28,6 +28,11 @@
         <td>{{ item.descripcion }}</td>
         <td>
             <a href="{{ url_for('linea.editar_linea', id=item.id) }}">Editar</a>
+            
+            <!-- Formulario para usar método POST por seguridad -->
+            <form action="{{ url_for('linea.eliminar_linea', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta línea de investigación? No se puede deshacer.');">
+                <button type="submit" style="color: red; margin-left: 10px;">Eliminar</button>
+            </form>
         </td>
     </tr>
     {% endfor %}
