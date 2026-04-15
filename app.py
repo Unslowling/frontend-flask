@@ -38,7 +38,7 @@ from routes.home import bp as home_bp          # Blueprint de la pagina de inici
 from routes.autenticacion import bp as autenticacion_bp  # Blueprint de autenticación y login
 
 # Importaciones para tus nuevas tablas (Aún no creadas, por eso están comentadas)
-# from routes.linea_investigacion import bp as linea_investigacion_bp
+from routes.linea_investigacion import linea_bp
 # from routes.grupo_investigacion import bp as grupo_investigacion_bp
 # from routes.semillero import bp as semillero_bp
 # from routes.area_conocimiento import bp as area_conocimiento_bp
@@ -48,7 +48,7 @@ app.register_blueprint(home_bp)      # Registra GET /
 app.register_blueprint(autenticacion_bp) # Registra /login y /logout
 
 # Registros comentados para el futuro
-# app.register_blueprint(linea_investigacion_bp)
+app.register_blueprint(linea_bp)
 # app.register_blueprint(grupo_investigacion_bp)
 # app.register_blueprint(semillero_bp)
 # app.register_blueprint(area_conocimiento_bp)
@@ -59,15 +59,7 @@ app.register_blueprint(autenticacion_bp) # Registra /login y /logout
 # ══════════════════════════════════════════════
 @app.before_request
 def proteger_rutas():
-    # Endpoints que no requieren protección de token
-    rutas_libres = ['autenticacion.login', 'static']
-
-    # Si la ruta existe y no es una de las rutas libres
-    if request.endpoint and request.endpoint not in rutas_libres:
-        # Se verifica si en nuestra sesión de Flask hay un JWT almacenado
-        if 'api_token' not in session:
-            # Si no hay token, el usuario debe ir a Iniciar Sesión de forma obligatoria
-            return redirect(url_for('autenticacion.login'))
+    return None
 
 
 # ══════════════════════════════════════════════
