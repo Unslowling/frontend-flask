@@ -1,0 +1,105 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<h2>Grupo Línea</h2>
+
+<form method="POST" action="{{ url_for('grupo_linea.crear') }}">
+
+    <label>Grupo de Investigación</label>
+
+    <select name="grupo" required>
+
+        <option value="">
+            Seleccione un grupo
+        </option>
+
+        {% for g in grupos %}
+
+        <option value="{{ g.id }}">
+            {{ g.nombre }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Línea de Investigación</label>
+
+    <select name="linea" required>
+
+        <option value="">
+            Seleccione una línea
+        </option>
+
+        {% for l in lineas %}
+
+        <option value="{{ l.id }}">
+            {{ l.nombre }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+        Crear
+    </button>
+
+</form>
+
+<hr>
+
+<table border="1">
+
+    <thead>
+
+        <tr>
+
+            <th>Grupo</th>
+            <th>Línea</th>
+            <th>Acciones</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for r in registros %}
+
+        <tr>
+
+            <td>
+                {{ r.grupo }}
+            </td>
+
+            <td>
+                {{ r.linea }}
+            </td>
+
+            <td>
+
+                <a href="{{ url_for(
+                    'grupo_linea.eliminar',
+                    grupo=r.grupo,
+                    linea=r.linea
+                ) }}">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
