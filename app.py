@@ -39,6 +39,7 @@ from routes.autenticacion import bp as autenticacion_bp  # Blueprint de autentic
 
 # Importaciones para tus nuevas tablas (Aún no creadas, por eso están comentadas)
 from routes.linea_investigacion import linea_bp
+from routes.objetivo_desarrollo_sostenible import ods_bp
 # from routes.grupo_investigacion import bp as grupo_investigacion_bp
 # from routes.semillero import bp as semillero_bp
 # from routes.area_conocimiento import bp as area_conocimiento_bp
@@ -49,6 +50,7 @@ app.register_blueprint(autenticacion_bp) # Registra /login y /logout
 
 # Registros comentados para el futuro
 app.register_blueprint(linea_bp)
+app.register_blueprint(ods_bp)
 # app.register_blueprint(grupo_investigacion_bp)
 # app.register_blueprint(semillero_bp)
 # app.register_blueprint(area_conocimiento_bp)

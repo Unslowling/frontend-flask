@@ -1,0 +1,17 @@
+<h1>Lista de Objetivos de Desarrollo Sostenible</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Categoría</th>
+    </tr>
+
+    {% for item in datos %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.categoria }}</td>
+    </tr>
+    {% endfor %}
+</table>
