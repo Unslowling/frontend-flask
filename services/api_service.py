@@ -101,35 +101,25 @@ class ApiService:
             Tupla (exito: bool, mensaje: str)
         """
         try:
-            # Construir la URL del endpoint: ej → "http://localhost:5034/api/usuario"
             url = f"{self.base_url}/api/{tabla}"
 
-            # Diccionario para los query params opcionales
             params = {}
-            # Si hay un campo a encriptar, agregarlo como parametro en la URL
-            # La API recibe ?camposEncriptar=contrasena y encripta ese campo con bcrypt
             if campos_encriptar:
                 params['camposEncriptar'] = campos_encriptar
 
-            # requests.post() hace una peticion HTTP POST.
-            # json=datos: convierte el diccionario Python a JSON y lo envia en el cuerpo.
-            # params: agrega los query params a la URL si existen.
+            print(f">>> API POST URL: {url}")
+            print(f">>> API POST DATA: {datos}")
             respuesta = requests.post(url, json=datos, params=params, headers=self._get_headers())
+            
+            print(f">>> API RESPONSE STATUS: {respuesta.status_code}")
+            print(f">>> API RESPONSE TEXT: {respuesta.text}")
 
-            # Convertir la respuesta JSON a diccionario Python
             contenido = respuesta.json()
-
-            # Extraer el mensaje de la respuesta (ej: "Registro creado exitosamente.")
-            # Si no viene el campo "mensaje", usar un texto por defecto
             mensaje = contenido.get("mensaje", "Operacion completada.")
 
-            # respuesta.ok es True si el codigo HTTP esta entre 200-299 (exito)
-            # Retorna una tupla: (True/False, "texto del mensaje")
             return (respuesta.ok, mensaje)
 
-        # Capturar errores de conexion (API apagada, timeout, error de red)
         except requests.RequestException as ex:
-            # Retornar False y el texto del error para mostrarlo como alerta roja
             return (False, f"Error de conexion: {ex}")
 
     # ──────────────────────────────────────────────

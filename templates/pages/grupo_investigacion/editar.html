@@ -1,0 +1,89 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Editar Grupo de Investigación{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Editar Grupo de Investigación</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <form action="{{ url_for('grupo_investigacion.editar_grupo', id=grupo.id) }}" method="POST">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombre" class="form-label">Nombre *</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" maxlength="100" value="{{ grupo.nombre }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="url_gruplac" class="form-label">URL Gruplac</label>
+                        <input type="url" name="url_gruplac" id="url_gruplac" class="form-control" maxlength="200" value="{{ grupo.url_gruplac or '' }}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria" class="form-label">Categoría</label>
+                        <select name="categoria" id="categoria" class="form-select">
+                            <option value="">-- Selecciona Categoría --</option>
+                            <option value="A" {% if grupo.categoria == 'A' %}selected{% endif %}>A</option>
+                            <option value="A1" {% if grupo.categoria == 'A1' %}selected{% endif %}>A1</option>
+                            <option value="B" {% if grupo.categoria == 'B' %}selected{% endif %}>B</option>
+                            <option value="C" {% if grupo.categoria == 'C' %}selected{% endif %}>C</option>
+                            <option value="D" {% if grupo.categoria == 'D' %}selected{% endif %}>D</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="convocatoria" class="form-label">Convocatoria</label>
+                        <input type="text" name="convocatoria" id="convocatoria" class="form-control" maxlength="50" value="{{ grupo.convocatoria or '' }}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="fecha_fundacion" class="form-label">Fecha de Fundación</label>
+                        <input type="date" name="fecha_fundacion" id="fecha_fundacion" class="form-control" value="{{ grupo.fecha_fundacion }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="universidad" class="form-label">Universidad (ID)</label>
+                        <input type="number" name="universidad" id="universidad" class="form-control" value="{{ grupo.universidad or '' }}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="ambito" class="form-label">Ámbito</label>
+                        <select name="ambito" id="ambito" class="form-select">
+                            <option value="">-- Selecciona Ámbito --</option>
+                            <option value="Nacional" {% if grupo.ambito == 'Nacional' %}selected{% endif %}>Nacional</option>
+                            <option value="Internacional" {% if grupo.ambito == 'Internacional' %}selected{% endif %}>Internacional</option>
+                            <option value="Regional" {% if grupo.ambito == 'Regional' %}selected{% endif %}>Regional</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3 d-flex align-items-center">
+                        <div class="form-check mt-4">
+                            <input type="checkbox" name="interno" id="interno" class="form-check-input" value="true" {% if grupo.interno %}checked{% endif %}>
+                            <label for="interno" class="form-check-label">¿Es interno?</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-warning">Actualizar</button>
+                    <a href="{{ url_for('grupo_investigacion.listar_grupos') }}" class="btn btn-secondary ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Crear Semillero{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Crear Nuevo Semillero</h1>
+
+    <!-- Mostrar mensajes flash de error -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="text-danger mt-3">
+        {% for category, message in messages %}
+          <li><b>{{ message }}</b></li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <div class="card mt-4" style="max-width: 600px;">
+        <div class="card-body">
+            <form action="{{ url_for('semillero.crear_semillero') }}" method="POST">
+                
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control" maxlength="60" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fecha_fundacion" class="form-label">Fecha de Fundación:</label>
+                    <input type="date" name="fecha_fundacion" id="fecha_fundacion" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="grupo_investigacion" class="form-label">Grupo de Investigación:</label>
+                    <select name="grupo_investigacion" id="grupo_investigacion" class="form-select" required>
+                        <option value="">-- Selecciona un Grupo --</option>
+                        {% for g in grupos %}
+                            <option value="{{ g.id }}">{{ g.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="{{ url_for('semillero.listar_semillero') }}" class="btn btn-secondary ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

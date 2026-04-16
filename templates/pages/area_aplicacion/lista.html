@@ -1,37 +1,53 @@
-<h1>Lista de Áreas de Aplicación</h1>
+{% extends 'layout/base.html' %}
 
-<a href="{{ url_for('aplicacion.crear_aplicacion') }}">Crear Nueva Área</a>
-<br><br>
+{% block title %}Lista de Áreas de Aplicación{% endblock %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <ul style="color: blue;">
-    {% for category, message in messages %}
-      <li><b>{{ message }}</b></li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Áreas de Aplicación</h1>
+        <a href="{{ url_for('aplicacion.crear_aplicacion') }}" class="btn btn-primary">Crear Nueva Área</a>
+    </div>
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
-    </tr>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-    {% for item in datos %}
-    <tr>
-        <td>{{ item.id }}</td>
-        <td>{{ item.nombre }}</td>
-        <td>
-            <a href="{{ url_for('aplicacion.editar_aplicacion', id=item.id) }}"> Editar</a>
-            
-            <!-- Botón seguro de eliminación por método POST -->
-            <form action="{{ url_for('aplicacion.eliminar_aplicacion', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta área de aplicación? Esta acción no se puede deshacer.');">
-                <button type="submit" style="color: red; margin-left: 10px;">Eliminar</button>
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    {% if datos|length == 0 %}
+        <div class="alert alert-info">No hay áreas de aplicación registradas.</div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in datos %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td>
+                            <a href="{{ url_for('aplicacion.editar_aplicacion', id=item.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                            <form action="{{ url_for('aplicacion.eliminar_aplicacion', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar esta área de aplicación?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

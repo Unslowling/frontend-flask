@@ -1,12 +1,12 @@
 {% extends 'layout/base.html' %}
 
-{% block title %}Lista de Objetivos de Desarrollo Sostenible{% endblock %}
+{% block title %}Semilleros{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Objetivos de Desarrollo Sostenible (ODS)</h1>
-        <a href="{{ url_for('ods.crear_ods') }}" class="btn btn-primary">Crear Nuevo ODS</a>
+        <h1>Semilleros</h1>
+        <a href="{{ url_for('semillero.crear_semillero') }}" class="btn btn-primary">Crear Nuevo Semillero</a>
     </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -21,7 +21,7 @@
     {% endwith %}
 
     {% if datos|length == 0 %}
-        <div class="alert alert-info">No hay objetivos de desarrollo sostenible registrados.</div>
+        <div class="alert alert-info">No hay semilleros registrados.</div>
     {% else %}
         <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -29,7 +29,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Categoría</th>
+                        <th>Fecha de Fundación</th>
+                        <th>Grupo de Investigación (ID)</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -38,10 +39,11 @@
                     <tr>
                         <td>{{ item.id }}</td>
                         <td>{{ item.nombre }}</td>
-                        <td>{{ item.categoria }}</td>
+                        <td>{{ item.fecha_fundacion.split('T')[0] if item.fecha_fundacion and 'T' in item.fecha_fundacion else item.fecha_fundacion }}</td>
+                        <td>{{ item.grupo_investigacion }}</td>
                         <td>
-                            <a href="{{ url_for('ods.editar_ods', id=item.id) }}" class="btn btn-sm btn-warning">Editar</a>
-                            <form action="{{ url_for('ods.eliminar_ods', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar este ODS?');">
+                            <a href="{{ url_for('semillero.editar_semillero', id=item.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                            <form action="{{ url_for('semillero.eliminar_semillero', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar este semillero?');">
                                 <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                             </form>
                         </td>
