@@ -1,0 +1,139 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<h2>Grupo de Investigación</h2>
+
+<form method="POST" action="{{ url_for('grupo_investigacion.crear') }}">
+
+    <label>Nombre</label>
+    <input type="text" name="nombre" required>
+
+    <br><br>
+
+    <label>URL Gruplac</label>
+    <input type="text" name="url_gruplac">
+
+    <br><br>
+
+    <label>Categoría</label>
+    <input type="text" name="categoria">
+
+    <br><br>
+
+    <label>Convocatoria</label>
+    <input type="text" name="convocatoria">
+
+    <br><br>
+
+    <label>Fecha Fundación</label>
+    <input type="date" name="fecha_fundacion">
+
+    <br><br>
+
+    <label>Universidad</label>
+
+    <select name="universidad" required>
+
+        <option value="">
+            Seleccione una universidad
+        </option>
+
+        {% for u in universidades %}
+
+        <option value="{{ u.id }}">
+            {{ u.nombre }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Interno</label>
+
+    <select name="interno">
+
+        <option value="1">
+            Sí
+        </option>
+
+        <option value="0">
+            No
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <label>Ámbito</label>
+    <input type="text" name="ambito">
+
+    <br><br>
+
+    <button type="submit">
+        Crear
+    </button>
+
+</form>
+
+<hr>
+
+<table border="1">
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>URL</th>
+            <th>Categoría</th>
+            <th>Convocatoria</th>
+            <th>Fecha</th>
+            <th>Universidad</th>
+            <th>Interno</th>
+            <th>Ámbito</th>
+            <th>Acciones</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for r in registros %}
+
+        <tr>
+
+            <td>{{ r.id }}</td>
+            <td>{{ r.nombre }}</td>
+            <td>{{ r.url_gruplac }}</td>
+            <td>{{ r.categoria }}</td>
+            <td>{{ r.convocatoria }}</td>
+            <td>{{ r.fecha_fundacion }}</td>
+            <td>{{ r.universidad }}</td>
+            <td>{{ r.interno }}</td>
+            <td>{{ r.ambito }}</td>
+
+            <td>
+
+                <a href="{{ url_for(
+                    'grupo_investigacion.eliminar',
+                    id=r.id
+                ) }}">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

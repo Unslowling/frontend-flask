@@ -1,0 +1,36 @@
+<h1>Editar Área de Conocimiento</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul style="color: red;">
+    {% for category, message in messages %}
+      <li><b>{{ message }}</b></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('area.editar_area', id=area.id) }}" method="POST">
+    <div>
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" value="{{ area.id }}" disabled>
+    </div>
+    <br>
+    <div>
+        <label for="gran_area">Gran Área:</label><br>
+        <input type="text" id="gran_area" name="gran_area" value="{{ area.gran_area }}" required>
+    </div>
+    <br>
+    <div>
+        <label for="area">Área:</label><br>
+        <input type="text" id="area" name="area" value="{{ area.area }}" required>
+    </div>
+    <br>
+    <div>
+        <label for="disciplina">Disciplina:</label><br>
+        <input type="text" id="disciplina" name="disciplina" value="{{ area.disciplina }}" required>
+    </div>
+    <br>
+    <button type="submit">Actualizar</button>
+    <a href="{{ url_for('area.listar_areas') }}">Cancelar</a>
+</form>

@@ -1,0 +1,59 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Crear Relación ODS - Línea{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Crear Relación: ODS y Línea de Investigación</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="text-danger mt-3">
+        {% for category, message in messages %}
+          <li><b>{{ message }}</b></li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <div class="card mt-4" style="max-width: 600px;">
+        <div class="card-body">
+            <form action="{{ url_for('ods_linea.crear_ods_linea') }}" method="POST">
+                
+                <!-- SELECT DE LÍNEA DE INVESTIGACIÓN -->
+                <div class="mb-3">
+                    <label for="linea_investigacion" class="form-label">Línea de Investigación:</label>
+                    <select name="linea_investigacion" id="linea_investigacion" class="form-select" required>
+                        <option value="">-- Selecciona una Línea --</option>
+                        {% for linea in lineas %}
+                            <option value="{{ linea.id }}">{{ linea.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- SELECT DE ODS -->
+                <div class="mb-3">
+                    <label for="ods" class="form-label">ODS:</label>
+                    <select name="ods" id="ods" class="form-select" required>
+                        <option value="">-- Selecciona un ODS --</option>
+                        <!-- Usamos el campo id porque la tabla objetivo_desarrollo_sostenible usa el id -->
+                        {% for o in ods_list %}
+                            <!-- 
+                            As in other tables, the entities loaded from objetivo_desarrollo_sostenible have an "id" property.
+                            But if it is true that they have an "ods" property, we will use it instead...
+                            To be safe, we will try o.id which is what the list endpoint of ods exposes.
+                            -->
+                            <option value="{{ o.id if o.id else o.ods }}">{{ o.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Guardar Relación</button>
+                    <a href="{{ url_for('ods_linea.listar_ods_linea') }}" class="btn btn-secondary ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

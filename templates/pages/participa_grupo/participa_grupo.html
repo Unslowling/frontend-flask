@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+    Participación de Docentes en Grupos
+</h1>
+
+<hr>
+
+<h2>
+    Crear registro
+</h2>
+
+<form method="POST" action="/participa_grupo/crear">
+
+<label>
+    Docente Cédula
+</label>
+
+<input
+    type="number"
+    name="docente_cedula"
+    required
+>
+
+<br>
+
+<label>
+    Grupo Investigación ID
+</label>
+
+<input
+    type="number"
+    name="grupo_investigacion_id"
+    required
+>
+
+<br>
+
+<label>
+    Rol
+</label>
+
+<input
+    type="text"
+    name="rol"
+    maxlength="15"
+>
+
+<br>
+
+<label>
+    Fecha Inicio
+</label>
+
+<input
+    type="date"
+    name="fecha_inicio"
+>
+
+<br>
+
+<label>
+    Fecha Fin
+</label>
+
+<input
+    type="date"
+    name="fecha_fin"
+>
+
+<br><br>
+
+<button type="submit">
+    Crear
+</button>
+
+</form>
+
+<hr>
+
+<h2>
+    Registros existentes
+</h2>
+
+<table border="1">
+
+<thead>
+
+<tr>
+
+<th>Docente</th>
+<th>Grupo</th>
+<th>Rol</th>
+<th>Fecha Inicio</th>
+<th>Fecha Fin</th>
+<th>Acciones</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for r in registros %}
+
+<tr>
+
+<td>
+    {{ r.docente_cedula }}
+</td>
+
+<td>
+    {{ r.grupo_investigacion_id }}
+</td>
+
+<td>
+    {{ r.rol }}
+</td>
+
+<td>
+    {{ r.fecha_inicio }}
+</td>
+
+<td>
+    {{ r.fecha_fin }}
+</td>
+
+<td>
+
+<form method="POST"
+      action="/participa_grupo/editar/{{ r.docente_cedula }}/{{ r.grupo_investigacion_id }}">
+
+<input
+    type="text"
+    name="rol"
+    value="{{ r.rol }}"
+>
+
+<input
+    type="date"
+    name="fecha_inicio"
+    value="{{ r.fecha_inicio }}"
+>
+
+<input
+    type="date"
+    name="fecha_fin"
+    value="{{ r.fecha_fin }}"
+>
+
+<button type="submit">
+    Editar
+</button>
+
+</form>
+
+<br>
+
+<a href="/participa_grupo/eliminar/{{ r.docente_cedula }}/{{ r.grupo_investigacion_id }}">
+    Eliminar
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

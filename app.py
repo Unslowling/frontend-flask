@@ -37,21 +37,40 @@ app.secret_key = SECRET_KEY
 from routes.home import bp as home_bp          # Blueprint de la pagina de inicio
 from routes.autenticacion import bp as autenticacion_bp  # Blueprint de autenticación y login
 
-# Importaciones para tus nuevas tablas (Aún no creadas, por eso están comentadas)
+# Importaciones para tus nuevas tablas
 from routes.linea_investigacion import linea_bp
+from routes.objetivo_desarrollo_sostenible import ods_bp
+from routes.area_aplicacion import aplicacion_bp
 # from routes.grupo_investigacion import bp as grupo_investigacion_bp
 # from routes.semillero import bp as semillero_bp
-# from routes.area_conocimiento import bp as area_conocimiento_bp
+from routes.area_conocimiento import area_bp
+from routes.ac_linea import bp as ac_linea_bp
+from routes.aa_linea import bp as aa_linea_bp
+from routes.ods_linea import bp as ods_linea_bp
+from routes.participa_semillero import participa_semillero_bp
+from routes.grupo_linea import grupo_linea_bp
+from routes.grupo_investigacion import grupo_investigacion_bp
+from routes.participa_grupo import participa_grupo_bp
+
 
 # Registros de Blueprints base
 app.register_blueprint(home_bp)      # Registra GET /
 app.register_blueprint(autenticacion_bp) # Registra /login y /logout
 
-# Registros comentados para el futuro
+# Registros de tus tablas
 app.register_blueprint(linea_bp)
+app.register_blueprint(ods_bp)
+app.register_blueprint(aplicacion_bp)
 # app.register_blueprint(grupo_investigacion_bp)
 # app.register_blueprint(semillero_bp)
-# app.register_blueprint(area_conocimiento_bp)
+app.register_blueprint(area_bp)
+app.register_blueprint(ac_linea_bp)
+app.register_blueprint(aa_linea_bp)
+app.register_blueprint(ods_linea_bp)
+app.register_blueprint(participa_semillero_bp)
+app.register_blueprint(grupo_linea_bp)
+app.register_blueprint(grupo_investigacion_bp)
+app.register_blueprint(participa_grupo_bp)
 
 
 # ══════════════════════════════════════════════

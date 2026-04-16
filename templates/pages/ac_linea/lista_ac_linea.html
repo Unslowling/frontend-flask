@@ -1,0 +1,41 @@
+<h1>Lista de Relaciones: Área de Conocimiento - Línea de Investigación</h1>
+
+<!-- En el siguiente paso agregaremos la ruta al GET de Crear -->
+<a href="{{ url_for('ac_linea.crear_ac_linea') }}">Crear Nueva Relación</a>
+<br><br>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul style="color: blue;">
+    {% for category, message in messages %}
+      <li><b>{{ message }}</b></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<table border="1">
+    <tr>
+        <th>Línea de Investigación (ID)</th>
+        <th>Área de Conocimiento (ID)</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for item in datos %}
+    <tr>
+        <!-- 🔹 PASO 2: Ver datos en pantalla (IDs por ahora) -->
+        <td>{{ item.linea_investigacion }}</td>
+        <td>{{ item.area_conocimiento }}</td>
+        <td>
+            <!-- PASO 4: Eliminar -->
+            <form action="{{ url_for('ac_linea.eliminar_ac_linea', id_linea=item.linea_investigacion, id_area=item.area_conocimiento) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta relación?');">
+                <button type="submit" style="color: red; margin-left: 10px;">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">No se encontraron o no hay registros para ac_linea.</td>
+    </tr>
+    {% endfor %}
+</table>

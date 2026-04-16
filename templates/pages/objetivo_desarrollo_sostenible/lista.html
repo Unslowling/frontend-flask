@@ -1,0 +1,38 @@
+<h1>Lista de Objetivos de Desarrollo Sostenible</h1>
+
+<a href="{{ url_for('ods.crear_ods') }}">Crear Nuevo ODS</a>
+<br><br>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul style="color: blue;">
+    {% for category, message in messages %}
+      <li><b>{{ message }}</b></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for item in datos %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.categoria }}</td>
+        <td>
+            <a href="{{ url_for('ods.editar_ods', id=item.id) }}"> Editar</a>
+            
+            <form action="{{ url_for('ods.eliminar_ods', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este ODS? Esta acción no se puede deshacer.');">
+                <button type="submit" style="color: red; margin-left: 10px;">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
