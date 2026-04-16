@@ -45,6 +45,7 @@ from routes.area_aplicacion import aplicacion_bp
 # from routes.semillero import bp as semillero_bp
 from routes.area_conocimiento import area_bp
 from routes.ac_linea import bp as ac_linea_bp
+from routes.aa_linea import bp as aa_linea_bp
 
 # Registros de Blueprints base
 app.register_blueprint(home_bp)      # Registra GET /
@@ -58,6 +59,7 @@ app.register_blueprint(aplicacion_bp)
 # app.register_blueprint(semillero_bp)
 app.register_blueprint(area_bp)
 app.register_blueprint(ac_linea_bp)
+app.register_blueprint(aa_linea_bp)
 
 
 # ══════════════════════════════════════════════

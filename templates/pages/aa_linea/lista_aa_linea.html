@@ -1,0 +1,38 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Relación Área de Aplicación - Línea{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Lista de Relaciones: Área de Aplicación - Línea de Investigación</h1>
+
+    <a href="{{ url_for('aa_linea.crear_aa_linea') }}" class="btn btn-primary mb-3">Crear Nueva Relación</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Línea de Investigación (ID)</th>
+                <th>Área de Aplicación (ID)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in datos %}
+            <tr>
+                <td>{{ item.linea_investigacion }}</td>
+                <td>{{ item.area_aplicacion }}</td>
+                <td>
+                    <form action="{{ url_for('aa_linea.eliminar_aa_linea', id_linea=item.linea_investigacion, id_area=item.area_aplicacion) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta relación?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" class="text-center">No se encontraron o no hay registros para aa_linea.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
