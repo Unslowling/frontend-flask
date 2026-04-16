@@ -1,0 +1,108 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<h2>Participa Semillero</h2>
+
+<form method="POST" action="{{ url_for('participa_semillero.crear') }}">
+
+    <label>Docente</label>
+
+    <select name="docente" required>
+
+        <option value="">
+            Seleccione un docente
+        </option>
+
+        {% for d in docentes %}
+
+        <option value="{{ d.id }}">
+            {{ d.nombre }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Semillero</label>
+
+    <select name="semillero" required>
+
+        <option value="">
+            Seleccione un semillero
+        </option>
+
+        {% for s in semilleros %}
+
+        <option value="{{ s.id }}">
+            {{ s.nombre }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <input type="text" name="rol" placeholder="Rol">
+
+    <input type="date" name="fecha_inicio">
+
+    <input type="date" name="fecha_fin">
+
+    <button type="submit">
+        Crear
+    </button>
+
+</form>
+
+<hr>
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>Docente</th>
+            <th>Semillero</th>
+            <th>Rol</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for r in registros %}
+
+        <tr>
+
+            <td>{{ r.docente }}</td>
+            <td>{{ r.semillero }}</td>
+            <td>{{ r.rol }}</td>
+            <td>{{ r.fecha_inicio }}</td>
+            <td>{{ r.fecha_fin }}</td>
+
+            <td>
+
+                <a href="{{ url_for(
+                    'participa_semillero.eliminar',
+                    docente=r.docente,
+                    semillero=r.semillero
+                ) }}">
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -47,6 +47,11 @@ from routes.area_conocimiento import area_bp
 from routes.ac_linea import bp as ac_linea_bp
 from routes.aa_linea import bp as aa_linea_bp
 from routes.ods_linea import bp as ods_linea_bp
+from routes.participa_semillero import participa_semillero_bp
+from routes.grupo_linea import grupo_linea_bp
+from routes.grupo_investigacion import grupo_investigacion_bp
+from routes.participa_grupo import participa_grupo_bp
+
 
 # Registros de Blueprints base
 app.register_blueprint(home_bp)      # Registra GET /
@@ -62,6 +67,10 @@ app.register_blueprint(area_bp)
 app.register_blueprint(ac_linea_bp)
 app.register_blueprint(aa_linea_bp)
 app.register_blueprint(ods_linea_bp)
+app.register_blueprint(participa_semillero_bp)
+app.register_blueprint(grupo_linea_bp)
+app.register_blueprint(grupo_investigacion_bp)
+app.register_blueprint(participa_grupo_bp)
 
 
 # ══════════════════════════════════════════════
