@@ -50,6 +50,8 @@ from routes.ods_linea import bp as ods_linea_bp
 from routes.participa_semillero import participa_semillero_bp
 from routes.grupo_linea import grupo_linea_bp
 from routes.grupo_investigacion import grupo_investigacion_bp
+from routes.participa_grupo import participa_grupo_bp
+
 
 # Registros de Blueprints base
 app.register_blueprint(home_bp)      # Registra GET /
@@ -68,6 +70,7 @@ app.register_blueprint(ods_linea_bp)
 app.register_blueprint(participa_semillero_bp)
 app.register_blueprint(grupo_linea_bp)
 app.register_blueprint(grupo_investigacion_bp)
+app.register_blueprint(participa_grupo_bp)
 
 
 # ══════════════════════════════════════════════
