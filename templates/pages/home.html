@@ -7,23 +7,26 @@
 
 {% extends 'layout/base.html' %}
 
-{% block title %}CRUD Facturas{% endblock %}
+{% block title %}CRUD Mapa de Conocimiento{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
 
-    <h1>CRUD - Base de Datos Facturas</h1>
+    <h1>CRUD - Mapa de Conocimiento</h1>
 
     <p class="lead">
-        Frontend Flask que consume la API generica
-        <strong>ApiGenericaCsharp</strong> para gestionar tablas
-        de una base de datos.
+        Aplicación web en Flask que consume una API genérica en C# 
+        para gestionar las tablas del sistema de Mapa de Conocimiento, 
+        incluyendo áreas, líneas de investigación y sus relaciones.
     </p>
 
     <div class="alert alert-info">
-        <strong>Tablas disponibles:</strong> Empresa, Persona, Producto, Rol, Ruta, Usuario, Cliente, Vendedor, Facturas.
-        <br />
-        Use el menu lateral para navegar a cada tabla.
+        <b>Tablas disponibles:</b> 
+        Área de Conocimiento, Área de Aplicación, Línea de Investigación, ODS,
+        Relaciones: AC-Línea, AA-Línea, ODS-Línea,
+        Semillero, Semillero-Línea, Grupo de Investigación.
+        <br>
+        Use el menú lateral para navegar y gestionar cada entidad del sistema.
     </div>
 
     {# ───────── INFO DE CONEXION A LA BD (discreta) ───────── #}
