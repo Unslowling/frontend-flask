@@ -53,3 +53,16 @@ def editar_aplicacion(id):
         return redirect(url_for('aplicacion.listar_aplicaciones'))
         
     return render_template("pages/area_aplicacion/editar.html", area_aplicacion=aplicacion_actual)
+
+# ELIMINAR
+@aplicacion_bp.route('/area_aplicacion/eliminar/<int:id>', methods=['POST'])
+def eliminar_aplicacion(id):
+    # Utilizamos el nombre de clave primara "id" de la tabla
+    exito, mensaje = api.eliminar("area_aplicacion", "id", id)
+    
+    if exito:
+        flash("Área de aplicación eliminada exitosamente.", "success")
+    else:
+        flash(f"Error al eliminar: {mensaje}", "danger")
+        
+    return redirect(url_for('aplicacion.listar_aplicaciones'))

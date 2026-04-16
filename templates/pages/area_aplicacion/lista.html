@@ -26,6 +26,11 @@
         <td>{{ item.nombre }}</td>
         <td>
             <a href="{{ url_for('aplicacion.editar_aplicacion', id=item.id) }}"> Editar</a>
+            
+            <!-- Botón seguro de eliminación por método POST -->
+            <form action="{{ url_for('aplicacion.eliminar_aplicacion', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta área de aplicación? Esta acción no se puede deshacer.');">
+                <button type="submit" style="color: red; margin-left: 10px;">Eliminar</button>
+            </form>
         </td>
     </tr>
     {% endfor %}
