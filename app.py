@@ -43,7 +43,7 @@ from routes.objetivo_desarrollo_sostenible import ods_bp
 from routes.area_aplicacion import aplicacion_bp
 # from routes.grupo_investigacion import bp as grupo_investigacion_bp
 # from routes.semillero import bp as semillero_bp
-# from routes.area_conocimiento import bp as area_conocimiento_bp
+from routes.area_conocimiento import area_bp
 from routes.ac_linea import bp as ac_linea_bp
 
 # Registros de Blueprints base
@@ -56,7 +56,7 @@ app.register_blueprint(ods_bp)
 app.register_blueprint(aplicacion_bp)
 # app.register_blueprint(grupo_investigacion_bp)
 # app.register_blueprint(semillero_bp)
-# app.register_blueprint(area_conocimiento_bp)
+app.register_blueprint(area_bp)
 app.register_blueprint(ac_linea_bp)
 
 
