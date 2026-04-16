@@ -1,0 +1,21 @@
+<h1>Crear Nueva Área de Aplicación</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul style="color: red;">
+    {% for category, message in messages %}
+      <li><b>{{ message }}</b></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('aplicacion.crear_aplicacion') }}" method="POST">
+    <div>
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required>
+    </div>
+    <br>
+    <button type="submit">Guardar</button>
+    <a href="{{ url_for('aplicacion.listar_aplicaciones') }}">Cancelar</a>
+</form>

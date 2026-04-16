@@ -1,15 +1,32 @@
 <h1>Lista de Áreas de Aplicación</h1>
 
+<a href="{{ url_for('aplicacion.crear_aplicacion') }}">Crear Nueva Área</a>
+<br><br>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul style="color: blue;">
+    {% for category, message in messages %}
+      <li><b>{{ message }}</b></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Nombre</th>
+        <th>Acciones</th>
     </tr>
 
     {% for item in datos %}
     <tr>
         <td>{{ item.id }}</td>
         <td>{{ item.nombre }}</td>
+        <td>
+            <a href="{{ url_for('aplicacion.editar_aplicacion', id=item.id) }}"> Editar</a>
+        </td>
     </tr>
     {% endfor %}
 </table>
