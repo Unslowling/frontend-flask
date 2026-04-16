@@ -30,33 +30,14 @@
             </a>
         </div>
 
-        {# Links a las 6 tablas sin clave foranea #}
-
-        <!-- Enlace al módulo de Intersección AC - Línea -->
-        <div class="nav-item px-3">
-            <a class="nav-link {{ 'active' if request.path.startswith('/ac_linea') }}" href="/ac_linea">
-                <span class="bi bi-link-45deg-nav-menu"></span> Relación AC - Línea
-            </a>
+        {# ───────── TABLAS PRINCIPALES ───────── #}
+        <div class="nav-item px-3 mt-3 mb-1">
+            <small class="text-muted fw-bold text-uppercase" style="font-size: 0.75rem;">--- PRINCIPALES ---</small>
         </div>
 
-        <!-- Links preparados para las tablas del sistema de Investigación (comentados por ahora) -->
-        
-        <!--
         <div class="nav-item px-3">
             <a class="nav-link {{ 'active' if request.path.startswith('/linea_investigacion') }}" href="/linea_investigacion">
                 <span class="bi bi-diagram-3-fill-nav-menu"></span> L. Investigación
-            </a>
-        </div>
-
-        <div class="nav-item px-3">
-            <a class="nav-link {{ 'active' if request.path.startswith('/grupo_investigacion') }}" href="/grupo_investigacion">
-                <span class="bi bi-people-fill-nav-menu"></span> Grupos Inv.
-            </a>
-        </div>
-
-        <div class="nav-item px-3">
-            <a class="nav-link {{ 'active' if request.path.startswith('/semillero') }}" href="/semillero">
-                <span class="bi bi-seedling-fill-nav-menu"></span> Semilleros
             </a>
         </div>
 
@@ -65,7 +46,42 @@
                 <span class="bi bi-book-half-nav-menu"></span> Áreas Conocimiento
             </a>
         </div>
-        -->
+
+        <div class="nav-item px-3">
+            <a class="nav-link {{ 'active' if request.path.startswith('/area_aplicacion') }}" href="/area_aplicacion">
+                <span class="bi bi-briefcase-fill-nav-menu"></span> Áreas de Aplicación
+            </a>
+        </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link {{ 'active' if request.path.startswith('/objetivo_desarrollo_sostenible') }}" href="/objetivo_desarrollo_sostenible">
+                <span class="bi bi-globe-americas-nav-menu"></span> ODS
+            </a>
+        </div>
+
+        {# ───────── TABLAS DE RELACIONES ───────── #}
+        <div class="nav-item px-3 mt-3 mb-1">
+            <small class="text-muted fw-bold text-uppercase" style="font-size: 0.75rem;">--- RELACIONES ---</small>
+        </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link {{ 'active' if request.path.startswith('/ac_linea') }}" href="/ac_linea">
+                <span class="bi bi-link-45deg-nav-menu"></span> Relación AC - Línea
+            </a>
+        </div>
+
+        <!-- Estas dos no están creadas aún en app.py, pero las agregamos listas para usar -->
+        <div class="nav-item px-3">
+            <a class="nav-link {{ 'active' if request.path.startswith('/aa_linea') }}" href="/aa_linea">
+                <span class="bi bi-link-45deg-nav-menu"></span> Relación AA - Línea
+            </a>
+        </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link {{ 'active' if request.path.startswith('/ods_linea') }}" href="/ods_linea">
+                <span class="bi bi-link-45deg-nav-menu"></span> Relación ODS - Línea
+            </a>
+        </div>
 
     </nav>
 </div>
