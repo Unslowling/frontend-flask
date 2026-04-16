@@ -56,3 +56,16 @@ def editar_area(id):
         return redirect(url_for('area.listar_areas'))
         
     return render_template("pages/area_conocimiento/editar.html", area=area_actual)
+
+# ELIMINAR
+@area_bp.route('/area_conocimiento/eliminar/<int:id>', methods=['POST'])
+def eliminar_area(id):
+    # Utilizamos el nombre de clave primara "id" que vimos en la API
+    exito, mensaje = api.eliminar("area_conocimiento", "id", id)
+    
+    if exito:
+        flash("Área de conocimiento eliminada exitosamente.", "success")
+    else:
+        flash(f"Error al eliminar: {mensaje}", "danger")
+        
+    return redirect(url_for('area.listar_areas'))

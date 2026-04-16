@@ -29,7 +29,12 @@
         <td>{{ item.area }}</td>
         <td>{{ item.disciplina }}</td>
         <td>
-            <a href="{{ url_for('area.editar_area', id=item.id) }}">✏️ Editar</a>
+            <a href="{{ url_for('area.editar_area', id=item.id) }}"> Editar</a>
+            
+            <!-- Formulario para usar método POST por seguridad -->
+            <form action="{{ url_for('area.eliminar_area', id=item.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta área de conocimiento? No se puede deshacer.');">
+                <button type="submit" style="color: red; margin-left: 10px;">Eliminar</button>
+            </form>
         </td>
     </tr>
     {% endfor %}
