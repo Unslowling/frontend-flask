@@ -1,7 +1,7 @@
 <h1>Lista de Relaciones: Área de Conocimiento - Línea de Investigación</h1>
 
 <!-- En el siguiente paso agregaremos la ruta al GET de Crear -->
-<a href="#">Crear Nueva Relación</a>
+<a href="{{ url_for('ac_linea.crear_ac_linea') }}">Crear Nueva Relación</a>
 <br><br>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -27,8 +27,8 @@
         <td>{{ item.linea_investigacion }}</td>
         <td>{{ item.area_conocimiento }}</td>
         <td>
-            <!-- SKIP UPDATE: Solo prepararemos Eliminar en el paso 3 o 4 -->
-            <form action="#" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta relación?');">
+            <!-- PASO 4: Eliminar -->
+            <form action="{{ url_for('ac_linea.eliminar_ac_linea', id_linea=item.linea_investigacion, id_area=item.area_conocimiento) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta relación?');">
                 <button type="submit" style="color: red; margin-left: 10px;">Eliminar</button>
             </form>
         </td>
