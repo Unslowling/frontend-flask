@@ -1,0 +1,36 @@
+<h1>Lista de Áreas de Conocimiento</h1>
+
+<a href="{{ url_for('area.crear_area') }}">Crear Nueva Área</a>
+<br><br>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul style="color: blue;">
+    {% for category, message in messages %}
+      <li><b>{{ message }}</b></li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Gran Área</th>
+        <th>Área</th>
+        <th>Disciplina</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for item in datos %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.gran_area }}</td>
+        <td>{{ item.area }}</td>
+        <td>{{ item.disciplina }}</td>
+        <td>
+            <a href="{{ url_for('area.editar_area', id=item.id) }}">✏️ Editar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

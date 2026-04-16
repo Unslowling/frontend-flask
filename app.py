@@ -41,7 +41,7 @@ from routes.autenticacion import bp as autenticacion_bp  # Blueprint de autentic
 from routes.linea_investigacion import linea_bp
 # from routes.grupo_investigacion import bp as grupo_investigacion_bp
 # from routes.semillero import bp as semillero_bp
-# from routes.area_conocimiento import bp as area_conocimiento_bp
+from routes.area_conocimiento import area_bp
 
 # Registros de Blueprints base
 app.register_blueprint(home_bp)      # Registra GET /
@@ -51,7 +51,7 @@ app.register_blueprint(autenticacion_bp) # Registra /login y /logout
 app.register_blueprint(linea_bp)
 # app.register_blueprint(grupo_investigacion_bp)
 # app.register_blueprint(semillero_bp)
-# app.register_blueprint(area_conocimiento_bp)
+app.register_blueprint(area_bp)
 
 
 # ══════════════════════════════════════════════
