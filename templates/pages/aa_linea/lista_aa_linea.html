@@ -4,35 +4,49 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Lista de Relaciones: Área de Aplicación - Línea de Investigación</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Relaciones: Área de Aplicación - Línea de Investigación</h1>
+        <a href="{{ url_for('aa_linea.crear_aa_linea') }}" class="btn btn-primary">Crear Nueva Relación</a>
+    </div>
 
-    <a href="{{ url_for('aa_linea.crear_aa_linea') }}" class="btn btn-primary mb-3">Crear Nueva Relación</a>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Línea de Investigación (ID)</th>
-                <th>Área de Aplicación (ID)</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in datos %}
-            <tr>
-                <td>{{ item.linea_investigacion }}</td>
-                <td>{{ item.area_aplicacion }}</td>
-                <td>
-                    <form action="{{ url_for('aa_linea.eliminar_aa_linea', id_linea=item.linea_investigacion, id_area=item.area_aplicacion) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta relación?');">
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="3" class="text-center">No se encontraron o no hay registros para aa_linea.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% if datos|length == 0 %}
+        <div class="alert alert-info">No hay relaciones registradas.</div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Línea de Investigación (ID)</th>
+                        <th>Área de Aplicación (ID)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in datos %}
+                    <tr>
+                        <td>{{ item.linea_investigacion }}</td>
+                        <td>{{ item.area_aplicacion }}</td>
+                        <td>
+                            <form action="{{ url_for('aa_linea.eliminar_aa_linea', id_linea=item.linea_investigacion, id_area=item.area_aplicacion) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de eliminar esta relación?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
