@@ -1,0 +1,15 @@
+<h1>Lista de Áreas de Aplicación</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+    </tr>
+
+    {% for item in datos %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.nombre }}</td>
+    </tr>
+    {% endfor %}
+</table>
