@@ -45,7 +45,7 @@ def index():
     diagnostico = None
     try:
         url = f"{api.base_url}/api/diagnostico/conexion"
-        respuesta = requests.get(url, timeout=3)
+        respuesta = requests.get(url, timeout=3, verify=api.verify)
         if respuesta.ok:
             diagnostico = respuesta.json()
     except Exception:

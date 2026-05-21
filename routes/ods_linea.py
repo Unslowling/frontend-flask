@@ -45,7 +45,7 @@ def eliminar_ods_linea(id_linea, id_ods):
             }
         }
         
-        resp = requests.post(url, json=payload, headers=api._get_headers())
+        resp = requests.post(url, json=payload, headers=api._get_headers(), verify=api.verify)
         
         if resp.ok or (resp.status_code == 404 and "no devolvió resultados" in resp.text):
             flash("Relación eliminada exitosamente.", "success")

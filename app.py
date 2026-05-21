@@ -6,7 +6,7 @@ e inicia el servidor de desarrollo en el puerto 5100.
 """
 
 # Flask: clase principal del framework web para crear la aplicacion
-from flask import Flask, request, session, redirect, url_for
+from flask import Flask, request, session, redirect, url_for, flash
 
 # SECRET_KEY: clave secreta definida en config.py, necesaria para mensajes flash
 from config import SECRET_KEY
@@ -41,7 +41,6 @@ from routes.autenticacion import bp as autenticacion_bp  # Blueprint de autentic
 from routes.linea_investigacion import linea_bp
 from routes.objetivo_desarrollo_sostenible import ods_bp
 from routes.area_aplicacion import aplicacion_bp
-from routes.grupo_investigacion import bp as grupo_investigacion_bp
 from routes.semillero import bp as semillero_bp
 from routes.area_conocimiento import area_bp
 from routes.ac_linea import bp as ac_linea_bp
@@ -69,7 +68,6 @@ app.register_blueprint(aa_linea_bp)
 app.register_blueprint(ods_linea_bp)
 app.register_blueprint(participa_semillero_bp)
 app.register_blueprint(grupo_linea_bp)
-app.register_blueprint(grupo_investigacion_bp)
 app.register_blueprint(participa_grupo_bp)
 
 
@@ -78,6 +76,27 @@ app.register_blueprint(participa_grupo_bp)
 # ══════════════════════════════════════════════
 @app.before_request
 def proteger_rutas():
+    """
+    Middleware que verifica si el usuario tiene token JWT.
+    Si no lo tiene, redirige a login.
+    Las rutas publicas (login, static) no requieren autenticacion.
+    """
+    # Rutas que NO requieren autenticacion
+    rutas_publicas = ['autenticacion.login', 'static']
+    
+    # request.endpoint es algo como: 'autenticacion.login' o 'home.index'
+    if request.endpoint in rutas_publicas:
+        return None
+    
+    # Si el endpoint es None (ruta no encontrada), dejar pasar
+    if request.endpoint is None:
+        return None
+    
+    # Verificar si el usuario tiene sesion con token JWT
+    if 'api_token' not in session:
+        flash('Debes iniciar sesion para acceder.', 'warning')
+        return redirect(url_for('autenticacion.login'))
+    
     return None
 
 

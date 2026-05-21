@@ -3,7 +3,7 @@ autenticacion.py - Blueprint para manejar el inicio de sesión con JWT.
 """
 import requests
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from config import API_BASE_URL
+from config import API_BASE_URL, VERIFY_SSL
 
 bp = Blueprint('autenticacion', __name__)
 
@@ -19,12 +19,18 @@ def login():
         contrasena = request.form.get('contrasena', '')
 
         try:
-            # Enviar credenciales al endpoint de login en C#
-            url = f"{API_BASE_URL}/api/autenticacion/login"
-            datos = {"email": email, "contrasena": contrasena}
+            # Enviar credenciales al endpoint de login en C# (ruta /token)
+            url = f"{API_BASE_URL}/api/autenticacion/token"
+            datos = {
+                "tabla": "usuario",
+                "campoUsuario": "email",
+                "campoContrasena": "contrasena",
+                "usuario": email,
+                "contrasena": contrasena
+            }
             
             # Petición HTTP directa usando requests
-            respuesta = requests.post(url, json=datos)
+            respuesta = requests.post(url, json=datos, verify=VERIFY_SSL)
             
             if respuesta.ok:
                 contenido = respuesta.json()

@@ -55,7 +55,7 @@ def eliminar_ac_linea(id_linea, id_area):
         }
         
         # Se envía por POST con el body JSON
-        resp = requests.post(url, json=payload, headers=api._get_headers())
+        resp = requests.post(url, json=payload, headers=api._get_headers(), verify=api.verify)
         
         # El endpoint de consultas devuelve 404 "no devolvió resultados" cuando el DELETE se ejecuta exitosamente (porque no retorna filas)
         if resp.ok or (resp.status_code == 404 and "no devolvió resultados" in resp.text):
